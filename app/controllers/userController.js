@@ -56,11 +56,12 @@ module.exports.create = async function create(req, res) {
     });
 
     User.create(user, (err,data) => {
-        if (err)
-            res.status(500).send({
+        if (err) {
+            return res.status(500).send({
                 message: err.message || 'Some error occured while creating an account'
             });
-        else res.status(201).send(data);
+        }
+        return res.status(201).send(data);
     });
 }
 
@@ -70,9 +71,9 @@ module.exports.login = async function login(req, res) {
 
     let result = await findBySomething(email);
     const user = { id: result.id, name: result.firstName};
+    console.log(result);
 
     const match = await bcrypt.compare(password, result.password);
-    console.log(match);
     // let secret = require('crypto').randomBytes(64).toString('hex');  
     
     if(!match && counter >= 4) {

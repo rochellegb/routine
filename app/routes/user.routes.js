@@ -1,7 +1,8 @@
+const users = require("../controllers/userController");
+const exercises = require("../controllers/exerciseController");
+const routine = require("../controllers/routineController");
+
 module.exports = app => {
-    const users = require("../controllers/userController");
-    const exercises = require("../controllers/exerciseController");
-    const routine = require("../controllers/routineController");
 
     //creates a new user
     app.post('/register', users.create);
@@ -17,8 +18,10 @@ module.exports = app => {
         res.render('login.ejs');
     });
 
-    app.get('/routine', (req, res) => {
-        
-    });
-    // app.post('/routine', routine.getHomePage);
+    app.get('/exercises', (req,res,next) => {
+        next();
+    }, exercises.getExercises);
+    
+    // app.get('/routine', routine.getRoutines);
+    // app.post('/routine', routine.addRoutine);
 }

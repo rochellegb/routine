@@ -1,11 +1,21 @@
 const sql = require('./db.js');
 
-class Exercise {
-    constructor(data) {
-        this.id = exercise.id;
-        this.name = exercise.name;
-        this.duration = exercise.duration;
-    }
-}
+//constructor
+const Exercise = function(exercise) {
+    this.id = exercise.id;
+    this.name = exercise.name;
+    this.duration = exercise.duration;
+};
 
-//return list of exercises
+Exercise.findAll = (result) => {
+    sql.query("SELECT * FROM exercises", (err, rows) => {
+    if(err) {
+        result(err,null)
+        return err;
+    }
+    result(null, rows);
+    return rows;
+    })
+};
+
+module.exports = Exercise;
